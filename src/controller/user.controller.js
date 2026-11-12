@@ -9,6 +9,7 @@ export async function LoginController(req, res) {
   res.status(user.status).send(user.message);
 }
 
-export function getAllUsersService(){
-    return getAllUsersModel();
+export async function getAllUsersController(req, res){
+  const users = await getAllUsersService();
+  res.status(200).send(users);
 }

@@ -3,9 +3,9 @@ import prisma from "../db.js"
 export async function registerUserModel(email, name, password) {
   const created = await prisma.user.create({
     data: { email, name, password },
+    select: { id: true, email: true, name: true },
   });
-  const users = await prisma.user.findMany();
-  return users;
+  return created;
 }
 
 export async function getUserModel(email) {
@@ -17,8 +17,8 @@ export async function getUserModel(email) {
 
 export async function getAllUsersModel(){
 
-  const users = await db.orm.public.User.all();
-
+  const users = await prisma.user.findMany({
+    select: { id: true, email: true, name: true },
+  });
   return users;
-
 }

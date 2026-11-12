@@ -1,14 +1,14 @@
 import jwt from "jsonwebtoken";
 
-export function createToken() {
-    const token = jwt.sign({email: "fulanito@fulano", name: "Pedro"}, "123");
-return token;
+const SECRET = process.env.JWT_SECRET || "token";
+
+export function createToken(userdata) {
+  return jwt.sign(userdata, SECRET, { expiresIn: "1h" });
 }
 
-export function verfyToken(token) {
+export function verifyToken(token) {
   try {
-    var decoded = jwt.verify(token, "token");
-    return "ok";
+    return jwt.verify(token, SECRET);
   } catch (e) {
     throw new Error("error de token");
   }

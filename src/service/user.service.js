@@ -16,8 +16,8 @@ export async function loginService(req) {
   const user = await getUserModel(email);
   if (user) {
     const userdata = {
+      id: user.id,
       name: user.name,
-      username: user.username,
       email: user.email,
     };
 
@@ -38,4 +38,8 @@ export async function loginService(req) {
       message: "usuario o clave incorrecto",
     };
   }
+}
+
+export async function getAllUsersService() {
+  return await getAllUsersModel();
 }
